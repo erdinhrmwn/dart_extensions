@@ -19,7 +19,7 @@ extension ListExtensions<E> on List<Widget> {
         textDirection: textDirection,
         verticalDirection: verticalDirection,
         textBaseline: textBaseline,
-        children: this,
+        children: this..addAll(children),
       );
 
   Widget toStackWidget({
@@ -36,7 +36,7 @@ extension ListExtensions<E> on List<Widget> {
         textDirection: textDirection,
         fit: fit,
         clipBehavior: clip,
-        children: this,
+        children: this..addAll(children),
       );
 
   Widget toColumnWidget({
@@ -57,6 +57,6 @@ extension ListExtensions<E> on List<Widget> {
         textDirection: textDirection,
         verticalDirection: verticalDirection,
         textBaseline: textBaseline,
-        children: this,
+        children: this..addAll(children),
       );
 }

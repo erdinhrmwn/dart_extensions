@@ -61,13 +61,6 @@ extension DateExtensions on DateTime {
   /// This means the exact minute, including year, month, day and hour.
   ///
   /// Does not account for timezones.
-  bool disAtSameMinuteAs(DateTime other) => isAtSameHourAs(other) && minute == other.minute;
-
-  /// Returns true if [other] is at the same minute as [this].
-  ///
-  /// This means the exact minute, including year, month, day and hour.
-  ///
-  /// Does not account for timezones.
   bool isAtSameMinuteAs(DateTime other) => isAtSameHourAs(other) && minute == other.minute;
 
   /// Returns true if [other] is at the same second as [this].
@@ -93,16 +86,11 @@ extension DateExtensions on DateTime {
   /// Does not account for timezones.
   bool isAtSameMicrosecondAs(DateTime other) => isAtSameMillisecondAs(other) && microsecond == other.microsecond;
 
-  bool get isYesterday {
-    final nowDate = DateTime.now();
-    return year == nowDate.year && month == nowDate.month && day == nowDate.day - 1;
-  }
-
   /// The list of days in a given month
   List<DateTime> get daysInMonth {
     var first = firstDayOfMonth;
     var daysBefore = first.weekday;
-    var firstToDisplay = first.subtract(Duration(days: daysBefore));
+    var firstToDisplay = first.subtract(daysBefore.days);
     var last = lastDayOfMonth;
 
     var daysAfter = 7 - last.weekday;
@@ -112,9 +100,17 @@ extension DateExtensions on DateTime {
       daysAfter = 7;
     }
 
-    var lastToDisplay = last.add(Duration(days: daysAfter));
+    var lastToDisplay = last.add(daysAfter.days);
     return daysInRange(firstToDisplay, lastToDisplay).toList();
   }
+
+  bool get isTomorrow => isSameDay(DateTime.now() + 1.days, this);
+
+  bool get isYesterday => isSameDay(DateTime.now() - 1.days, this);
+
+  bool get isFuture => isAfter(DateTime.now());
+
+  bool get isPast => isBefore(DateTime.now());
 
   bool get isFirstDayOfMonth => isSameDay(firstDayOfMonth, this);
 
@@ -130,7 +126,7 @@ extension DateExtensions on DateTime {
     /// Weekday is on a 1-7 scale Monday - Sunday,
     /// This Calendar works from Sunday - Monday
     var decreaseNum = day.weekday % 7;
-    return this.subtract(Duration(days: decreaseNum));
+    return this.subtract(decreaseNum.days);
   }
 
   DateTime get lastDayOfWeek {
@@ -141,13 +137,13 @@ extension DateExtensions on DateTime {
     /// Weekday is on a 1-7 scale Monday - Sunday,
     /// This Calendar's Week starts on Sunday
     var increaseNum = day.weekday % 7;
-    return day.add(Duration(days: 7 - increaseNum));
+    return day.add((7 - increaseNum).days);
   }
 
   /// The last day of a given month
   DateTime get lastDayOfMonth {
     var beginningNextMonth = (this.month < 12) ? DateTime(this.year, this.month + 1, 1) : DateTime(this.year + 1, 1, 1);
-    return beginningNextMonth.subtract(Duration(days: 1));
+    return beginningNextMonth.subtract(1.days);
   }
 
   DateTime get previousMonth {
@@ -175,9 +171,9 @@ extension DateExtensions on DateTime {
     return DateTime(year, month);
   }
 
-  DateTime get previousWeek => this.subtract(Duration(days: 7));
+  DateTime get previousWeek => this.subtract(7.days);
 
-  DateTime get nextWeek => this.add(Duration(days: 7));
+  DateTime get nextWeek => this.add(7.days);
 
   /// Returns a [DateTime] for each day the given range.
   ///
@@ -188,11 +184,11 @@ extension DateExtensions on DateTime {
     var offset = start.timeZoneOffset;
     while (i.isBefore(end)) {
       yield i;
-      i = i.add(Duration(days: 1));
+      i = i.add(1.days);
       var timeZoneDiff = i.timeZoneOffset - offset;
       if (timeZoneDiff.inSeconds != 0) {
         offset = i.timeZoneOffset;
-        i = i.subtract(Duration(seconds: timeZoneDiff.inSeconds));
+        i = i.subtract(timeZoneDiff.inSeconds.seconds);
       }
     }
   }
@@ -227,33 +223,23 @@ extension DateExtensions on DateTime {
 
   /// to add years to a [DateTime] add a positive number
   /// to remove years pass a negative number
-  DateTime addOrRemoveYears(int years) {
-    return DateTime(year + years, month, day, minute, second);
-  }
+  DateTime addOrRemoveYears(int years) => DateTime(year + years, month, day, minute, second);
 
   /// to add month to a [DateTime] add a positive number
   /// to remove years pass a negative number
-  DateTime addOrRemoveMonth(int months) {
-    return DateTime(year, month + months, day, minute, second);
-  }
+  DateTime addOrRemoveMonth(int months) => DateTime(year, month + months, day, minute, second);
 
   /// to add days to a [DateTime] add a positive number
   /// to remove days pass a negative number
-  DateTime addOrRemoveDay(int days) {
-    return DateTime(year, month, day + days, minute, second);
-  }
+  DateTime addOrRemoveDay(int days) => DateTime(year, month, day + days, minute, second);
 
   /// to add min to a [DateTime] add a positive number
   /// to remove min pass a negative number
-  DateTime addOrRemoveMinutes(int min) {
-    return DateTime(year, month, day, minute + min, second);
-  }
+  DateTime addOrRemoveMinutes(int min) => DateTime(year, month, day, minute + min, second);
 
   /// to add sec to a [DateTime] add a positive number
   /// to remove sec pass a negative number
-  DateTime addOrRemoveSeconds(int sec) {
-    return DateTime(year, month, day, minute, second + sec);
-  }
+  DateTime addOrRemoveSeconds(int sec) => DateTime(year, month, day, minute, second + sec);
 
   ///  Start time of Date times
   DateTime startOfDay() => DateTime(year, month, day);

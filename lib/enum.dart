@@ -10,6 +10,6 @@ extension EnumExt on dynamic {
     assert(this != null);
     assert(_isEnumItem(this), '$this of type ${this.runtimeType.toString()} is not an enum item');
     final temp = this.toString().split('.')[1];
-    return !camelCase ? temp : temp.camelCase;
+    return camelCase ? temp.camelCase : temp;
   }
 }
