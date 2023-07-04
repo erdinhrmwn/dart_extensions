@@ -1,7 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
 class ResponsiveTools {
   /// Device's BoxConstraints

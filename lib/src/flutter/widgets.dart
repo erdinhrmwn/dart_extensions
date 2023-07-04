@@ -11,17 +11,19 @@
  * limitations under the License.
  */
 
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
 extension WidgetsExtension on Widget {
-  Widget withTooltip(String message,
-          {Decoration? decoration,
-          double? height,
-          bool? preferBelow,
-          EdgeInsetsGeometry? padding,
-          TextStyle? textStyle,
-          Duration? waitDuration,
-          EdgeInsetsGeometry? margin}) =>
+  Widget withTooltip(
+    String message, {
+    Decoration? decoration,
+    double? height,
+    bool? preferBelow,
+    EdgeInsetsGeometry? padding,
+    TextStyle? textStyle,
+    Duration? waitDuration,
+    EdgeInsetsGeometry? margin,
+  }) =>
       Tooltip(
         message: message,
         decoration: decoration,
@@ -33,4 +35,7 @@ extension WidgetsExtension on Widget {
         margin: margin,
         child: this,
       );
+
+  Widget expanded({int flex = 1}) => Expanded(child: this, flex: flex);
+  Widget flexible({int flex = 1, FlexFit fit = FlexFit.loose}) => Flexible(child: this, flex: flex, fit: fit);
 }

@@ -11,11 +11,9 @@
  * limitations under the License.
  */
 
-import 'dart:convert' as convert;
-import '../src/string_ext.dart';
-import 'package:http/http.dart' as http;
+part of '/dart_extensions.dart';
 
-const _defaultHeaders = {"Content-type": "application/json"};
+const _defaultHeaders = {"Content-Type": "application/json"};
 
 extension HttpExtensions on String {
   /// Sends an HTTP GET request with the given headers to the given URL, which can
@@ -25,14 +23,11 @@ extension HttpExtensions on String {
   /// current string is www.mydomain.com
   /// endpoint param - user
   /// result request -> www.mydomain.com/user
-  Future<dynamic> httpGet(String endPoint) async {
-    if (this.isEmptyOrNull) return;
+  Future<http.Response> httpGet(String endPoint) async {
+    assert(!endPoint.isEmptyOrNull, 'Endpoint cannot be empty.');
 
     try {
-      final response = await http.get(Uri.http(this, endPoint));
-      return response.statusCode == 200
-          ? convert.jsonDecode(response.body)
-          : print('Request failed with status: ${response.statusCode}.');
+      return await http.get(Uri.https(this, endPoint));
     } on Exception catch (e) {
       return Future.error(e);
     }
@@ -45,14 +40,9 @@ extension HttpExtensions on String {
   /// current string is www.mydomain.com
   /// endpoint param - user
   /// result request -> www.mydomain.com/user
-  Future<dynamic> httpPost(String endPoint, String json, [Map<String, String> headers = _defaultHeaders]) async {
-    if (this.isEmptyOrNull) return;
-
+  Future<http.Response> httpPost(String endPoint, Object? json, [Map<String, String> headers = _defaultHeaders]) async {
     try {
-      final response = await http.post(Uri.http(this, endPoint), headers: headers, body: json);
-      return response.statusCode == 200
-          ? convert.jsonDecode(response.body)
-          : print('Request failed with status: ${response.statusCode}.');
+      return await http.post(Uri.https(this, endPoint), headers: headers, body: json);
     } on Exception catch (e) {
       return Future.error(e);
     }
@@ -65,14 +55,11 @@ extension HttpExtensions on String {
   /// current string is www.mydomain.com
   /// endpoint param - user
   /// result request -> www.mydomain.com/user
-  Future<dynamic> httpPut(String endPoint, String json, [Map<String, String> headers = _defaultHeaders]) async {
-    if (this.isEmptyOrNull) return;
+  Future<http.Response> httpPut(String endPoint, Object? json, [Map<String, String> headers = _defaultHeaders]) async {
+    assert(!endPoint.isEmptyOrNull, 'Endpoint cannot be empty.');
 
     try {
-      final response = await http.put(Uri.http(this, endPoint), headers: headers, body: json);
-      return response.statusCode == 200
-          ? convert.jsonDecode(response.body)
-          : print('Request failed with status: ${response.statusCode}.');
+      return await http.put(Uri.https(this, endPoint), headers: headers, body: json);
     } on Exception catch (e) {
       return Future.error(e);
     }
@@ -85,14 +72,11 @@ extension HttpExtensions on String {
   /// current string is www.mydomain.com
   /// endpoint param - user
   /// result request -> www.mydomain.com/user
-  Future<dynamic> httpDelete(String endPoint, {Map<String, String>? headers}) async {
-    if (this.isEmptyOrNull) return;
+  Future<http.Response> httpDelete(String endPoint, [Map<String, String> headers = _defaultHeaders]) async {
+    assert(!endPoint.isEmptyOrNull, 'Endpoint cannot be empty.');
 
     try {
-      final response = await http.delete(Uri.http(this, endPoint), headers: headers);
-      return response.statusCode == 200
-          ? convert.jsonDecode(response.body)
-          : print('Request failed with status: ${response.statusCode}.');
+      return await http.delete(Uri.https(this, endPoint), headers: headers);
     } on Exception catch (e) {
       return Future.error(e);
     }

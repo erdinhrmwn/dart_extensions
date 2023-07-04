@@ -11,12 +11,10 @@
  * limitations under the License.
  */
 
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
 extension CenterExtension on Widget {
   Center toCenter() {
-    return Center(
-      child: this,
-    );
+    return Center(child: this);
   }
 }

@@ -10,12 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
 class TranslateOnClick extends StatefulWidget {
   final Widget child;
 
-  const TranslateOnClick({Key? key,required this.child}) : super(key: key);
+  const TranslateOnClick({Key? key, required this.child}) : super(key: key);
 
   @override
   _TranslateOnClickState createState() => _TranslateOnClickState();

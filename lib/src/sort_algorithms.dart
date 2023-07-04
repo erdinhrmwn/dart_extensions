@@ -10,10 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+part of '/dart_extensions.dart';
+
 extension SearchAlgorithmExtensions on List<int> {
   List<int> quickSort([int? left, int? right]) {
     var list = this;
-    if ((left??0) >= (right??0)) return [-1];
+    if ((left ?? 0) >= (right ?? 0)) return [-1];
     int pivot = left!, i = left, j = right!, direction = -1, temp = 0;
     while (i < j) {
       if (direction == -1) {

@@ -10,18 +10,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import 'package:dart_extensions/dart_extensions.dart';
 import 'package:test/test.dart';
-import 'package:dart_extensions/src/int.dart';
 
 main() {
   group('integers', () {
-
     test('inRangeOf', () {
       expect(1.inRangeOf(0, 3), 1);
       expect(2.inRangeOf(3, 4), 3);
       expect(5.inRangeOf(3, 4), 4);
     });
-
 
     test('isEven', () {
       expect(2.isEven, true);

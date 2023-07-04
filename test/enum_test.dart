@@ -1,8 +1,9 @@
-import 'package:test/expect.dart';
 import 'package:test/test.dart';
-import '../lib/emum.dart';
+
+import '../lib/enum.dart';
 
 enum TestEnum { testValue1, testValue2, testValue3 }
+
 enum OtherEnumForTesting { helloImAnEnumValue }
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
 extension IconExtensions<T extends Icon> on T {
   Icon copyWith({

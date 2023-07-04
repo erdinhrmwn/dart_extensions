@@ -10,9 +10,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'package:dart_extensions/src/iterable.dart';
-import 'package:dart_extensions/src/model/user.dart';
+import 'package:dart_extensions/dart_extensions.dart';
 import 'package:test/test.dart';
+
+class User {
+  final int age;
+  final String name;
+
+  User(this.age, this.name);
+
+  @override
+  String toString() {
+    return 'User{age: $age, name: $name}';
+  }
+}
 
 main() {
   final users = [User(22, "Ronit"), User(23, "Ronit"), User(22, "Oded"), User(32, "Shimi")];
@@ -177,7 +188,7 @@ main() {
     expect(users.find((u) => u.age == 31), null);
   });
 
-  test('gruopBy by age', () {
+  test('groupBy by age', () {
     final expected = {
       22: [users[0], users[2]],
       23: [users[1]],
@@ -187,7 +198,7 @@ main() {
     expect(users.groupBy((User u) => u.age), expected);
   });
 
-  test('gourpBy by name', () {
+  test('groupBy by name', () {
     final expected = {
       'Ronit': [users[0], users[1]],
       'Oded': [users[2]],

@@ -11,8 +11,8 @@
  * limitations under the License.
  */
 
+import 'package:dart_extensions/dart_extensions.dart';
 import 'package:test/test.dart';
-import 'package:dart_extensions/src/string_ext.dart';
 
 main() {
   group('strings', () {
@@ -68,7 +68,7 @@ main() {
       expect('hello world'.isNotBlank, true);
       expect('hello world      '.isNotBlank, true);
       expect(''.isNotBlank, false);
-      final String? test = null;
+      final String test = "";
       expect(test.isNotBlank, false);
     });
 

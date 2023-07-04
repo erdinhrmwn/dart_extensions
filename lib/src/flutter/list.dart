@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
 extension ListExtensions<E> on List<Widget> {
   Widget toRowWidget({

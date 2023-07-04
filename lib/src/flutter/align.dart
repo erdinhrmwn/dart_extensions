@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
 extension AlignExtensions on Widget {
   Align alignAtBottomCenter({

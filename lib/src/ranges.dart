@@ -11,17 +11,17 @@
  * limitations under the License.
  */
 
-import 'exceptions/range_exception.dart';
+part of '/dart_extensions.dart';
 
-extension RangeExtensions on int {
-  /// Returns a sequence of integer, starting from [this],
+extension RangeExtensions on num {
+  /// Returns a sequence of number, starting from [this],
   /// increments by [step] and ends at [end]
-  Iterable<int> until(int end, {int step = 1}) sync* {
+  Iterable<num> until(num end, {num step = 1}) sync* {
     if (step == 0) {
       throw RException.steps();
     }
 
-    int currentNumber = this;
+    num currentNumber = this;
 
     if (step > 0) {
       while (currentNumber < end) {

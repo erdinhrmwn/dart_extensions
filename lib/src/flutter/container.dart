@@ -10,36 +10,82 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
-extension ContainerExtensions on Container {
-  /// Add round corners to a Container
+extension ContainerExtensions<T extends Container> on T {
+  Container copyWith({
+    Key? key,
+    AlignmentGeometry? alignment,
+    EdgeInsetsGeometry? padding,
+    Color? color,
+    Decoration? decoration,
+    Decoration? foregroundDecoration,
+    double? width,
+    double? height,
+    BoxConstraints? constraints,
+    EdgeInsetsGeometry? margin,
+    Matrix4? transform,
+    AlignmentGeometry? transformAlignment,
+    Widget? child,
+    Clip? clipBehavior,
+  }) =>
+      Container(
+        key: key ?? this.key,
+        child: child ?? this.child,
+        alignment: alignment ?? this.alignment,
+        padding: padding ?? this.padding,
+        color: color ?? this.color,
+        decoration: decoration ?? this.decoration,
+        foregroundDecoration: foregroundDecoration ?? this.foregroundDecoration,
+        constraints: constraints ?? this.constraints,
+        margin: margin ?? this.margin,
+        transform: transform ?? this.transform,
+        transformAlignment: transformAlignment ?? this.transformAlignment,
+        clipBehavior: clipBehavior ?? this.clipBehavior,
+      );
+
+  ///  Add background color to a Container
+  T withBackgroundColor({required Color color}) => this.copyWith(
+        decoration: ((this.decoration as BoxDecoration?) ?? BoxDecoration()).copyWith(
+          color: color,
+        ),
+      ) as T;
+
+  ///  Add round corners to a Container
+  T withRoundCorners({double radius = 25}) => this.copyWith(
+        decoration: ((this.decoration as BoxDecoration?) ?? BoxDecoration()).copyWith(
+          borderRadius: BorderRadius.circular(radius),
+        ),
+      ) as T;
+
+  ///  Add border to a Container
   ///  if the Container already has a color use [backgroundColor] instead and remove the
   ///  [Color] from the Container it self
-  Container withRoundCorners({required Color backgroundColor}) => Container(
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.all(
-            Radius.circular(25),
-          ),
+  T withBorder({BoxBorder? border}) => this.copyWith(
+        decoration: ((this.decoration as BoxDecoration?) ?? BoxDecoration()).copyWith(
+          border: border,
         ),
-        child: this,
-      );
+      ) as T;
 
   /// A shadow cast by a box
   ///
   /// [shadowColor]
-  Container withShadow(
-          {Color shadowColor = Colors.grey,
-          double blurRadius = 20.0,
-          double spreadRadius = 1.0,
-          Offset offset = const Offset(10.0, 10.0)}) =>
-      Container(
-        decoration: BoxDecoration(
+  T withShadow({
+    Color shadowColor = Colors.grey,
+    double blurRadius = 20.0,
+    double spreadRadius = 1.0,
+    Offset offset = const Offset(10.0, 10.0),
+  }) =>
+      this.copyWith(
+        decoration: ((this.decoration as BoxDecoration?) ?? BoxDecoration()).copyWith(
           boxShadow: [
-            BoxShadow(color: shadowColor, blurRadius: blurRadius, spreadRadius: spreadRadius, offset: offset),
+            BoxShadow(
+              color: shadowColor,
+              blurRadius: blurRadius,
+              spreadRadius: spreadRadius,
+              offset: offset,
+            ),
           ],
         ),
-        child: this,
-      );
+      ) as T;
 }

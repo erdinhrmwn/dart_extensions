@@ -11,8 +11,7 @@
  * limitations under the License.
  */
 
-import 'package:dart_extensions/src/flutter/transforms/click_translate.dart';
-import 'package:flutter/material.dart';
+part of '/dart_extensions.dart';
 
 extension TransformExtensions on Widget {
   Widget get pushEffectOnClick => TranslateOnClick(child: this);

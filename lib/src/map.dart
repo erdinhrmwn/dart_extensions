@@ -1,3 +1,5 @@
+part of '/dart_extensions.dart';
+
 extension MapExt on Map<String, dynamic> {
   /// Flatten a nested Map into a single level map
   ///
@@ -44,6 +46,5 @@ extension MapExt on Map<String, dynamic> {
     return result;
   }
 
-  Map<String, T> _listToMap<T>(List<T> list) =>
-      list.asMap().map((key, value) => MapEntry(key.toString(), value));
+  Map<String, T> _listToMap<T>(List<T> list) => list.asMap().map((key, value) => MapEntry(key.toString(), value));
 }

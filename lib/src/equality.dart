@@ -11,6 +11,8 @@
  * limitations under the License.
  */
 
+part of '/dart_extensions.dart';
+
 typedef Comparer<T> = bool Function(T left, T right);
 
 typedef Hasher<T> = int Function(T value);
@@ -30,8 +32,7 @@ class EqualityComparer<T> {
         hash = hasher ?? _getDefaultHasher<T>(),
         sort = sorter ?? _getDefaultSorter<T>();
 
-  static Comparer<T> _getDefaultComparer<T>() =>
-      (T left, T right) => left == right;
+  static Comparer<T> _getDefaultComparer<T>() => (T left, T right) => left == right;
 
   static Hasher<T> _getDefaultHasher<T>() => (T value) => value.hashCode;
 
@@ -77,8 +78,7 @@ class EqualityComparer<T> {
     ),
   };
 
-  static bool registerEqualityComparer<T>(EqualityComparer<T> comparer,
-      {bool overwrite = false}) {
+  static bool registerEqualityComparer<T>(EqualityComparer<T> comparer, {bool overwrite = false}) {
     var typeExists = _registeredEqualityComparers.containsKey(T);
     if (!typeExists || overwrite) _registeredEqualityComparers[T] = comparer;
     return typeExists;
@@ -97,12 +97,8 @@ abstract class OrderedIterable<T> extends Iterable<T> {
 
   IterableSorter<T> getIterableSorter(IterableSorter<T> next);
 
-  OrderedIterable<T> createOrderedIterable<TNewKey>(
-      TNewKey Function(T) keySelector,
-      EqualityComparer<TNewKey> keyComparer,
-      bool descending) {
-    final result = InternalOrderedIterable<T, TNewKey>(
-        source, keySelector, keyComparer, descending);
+  OrderedIterable<T> createOrderedIterable<TNewKey>(TNewKey Function(T) keySelector, EqualityComparer<TNewKey> keyComparer, bool descending) {
+    final result = InternalOrderedIterable<T, TNewKey>(source, keySelector, keyComparer, descending);
     result.parent = this;
     return result;
   }
@@ -114,9 +110,7 @@ class InternalOrderedIterable<TValue, TKey> extends OrderedIterable<TValue> {
   EqualityComparer<TKey> keyComparer;
   bool? descending;
 
-  InternalOrderedIterable(Iterable<TValue> source, this.keySelector,
-      this.keyComparer, this.descending)
-      : super(source) {
+  InternalOrderedIterable(Iterable<TValue> source, this.keySelector, this.keyComparer, this.descending) : super(source) {
     this.source = source;
   }
 
@@ -134,8 +128,7 @@ class InternalOrderedIterable<TValue, TKey> extends OrderedIterable<TValue> {
 
   @override
   IterableSorter<TValue> getIterableSorter(IterableSorter<TValue>? next) {
-    IterableSorter<TValue>? sorter = InternalIterableSorter<TValue, TKey>(
-        keySelector, keyComparer, next,descending: descending);
+    IterableSorter<TValue>? sorter = InternalIterableSorter<TValue, TKey>(keySelector, keyComparer, next, descending: descending);
     if (parent != null) sorter = parent!.getIterableSorter(sorter);
     return sorter;
   }

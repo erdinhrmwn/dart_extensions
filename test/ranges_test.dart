@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'package:dart_extensions/src/ranges.dart';
+import 'package:dart_extensions/dart_extensions.dart';
 import 'package:test/test.dart';
 
 main() {
@@ -36,7 +36,7 @@ main() {
     });
 
     test('for loop', () {
-      final numbers = <int>[];
+      final numbers = <num>[];
       for (final num in 1.until(10)) {
         numbers.add(num);
       }
@@ -44,7 +44,7 @@ main() {
     });
 
     test('for loop step 2', () {
-      final numbers = <int>[];
+      final numbers = <num>[];
       for (final num in 1.until(10, step: 2)) {
         numbers.add(num);
       }

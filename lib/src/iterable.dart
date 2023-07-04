@@ -10,13 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'dart:collection';
-import 'dart:math';
-
-import 'package:quiver/iterables.dart';
-
-import 'data_stractures/stack.dart';
-import 'equality.dart';
+part of '/dart_extensions.dart';
 
 typedef IndexedPredicate<T> = bool Function(int index, T);
 
@@ -27,7 +21,7 @@ extension CollectionsNullableExtensions<T> on Iterable<T>? {
   ///Returns `true` if this nullable iterable is either null or empty.
   bool get isEmptyOrNull => (this?.isEmpty ?? true);
 
-    /// Returns `true` if at least one element matches the given [predicate].
+  /// Returns `true` if at least one element matches the given [predicate].
   bool any(bool predicate(T element)) {
     if (this.isEmptyOrNull) return false;
     for (final element in this.orEmpty()) if (predicate(element)) return true;
@@ -52,7 +46,9 @@ extension CollectionsNullableExtensions<T> on Iterable<T>? {
   /// the combination of them two.
   zip<T>(Iterable<T> iterable) sync* {
     if (iterable.isEmptyOrNull) return;
-    final iterables = List<Iterable>.empty()..add(this.orEmpty())..add(iterable);
+    final iterables = List<Iterable>.empty()
+      ..add(this.orEmpty())
+      ..add(iterable);
 
     final iterators = iterables.map((e) => e.iterator).toList(growable: false);
     while (iterators.every((e) => e.moveNext())) {
@@ -118,7 +114,7 @@ extension CollectionsExtensions<T> on Iterable<T> {
     return result;
   }
 
-// return the half size of a list
+  // return the half size of a list
   int get halfLength => (this.length / 2).floor();
 
   /// Returns a list containing first [n] elements.
@@ -127,15 +123,13 @@ extension CollectionsExtensions<T> on Iterable<T> {
 
     var list = List<T>.empty();
     var thisList = this.toList();
-    if (this is Iterable) {
-      final resultSize = this.length - n;
-      if (resultSize <= 0) return [];
-      if (resultSize == 1) return [this.last];
+    final resultSize = this.length - n;
+    if (resultSize <= 0) return [];
+    if (resultSize == 1) return [this.last];
 
-      List.generate(n, (index) {
-        list.add(thisList[index]);
-      });
-    }
+    List.generate(n, (index) {
+      list.add(thisList[index]);
+    });
     return list;
   }
 
@@ -145,19 +139,16 @@ extension CollectionsExtensions<T> on Iterable<T> {
 
     var list = List<T>.empty();
     var originalList = this.toList();
-    if (this is Iterable) {
-      final resultSize = this.length - n;
-      if (resultSize <= 0) return [];
-      if (resultSize == 1) return [this.last];
+    final resultSize = this.length - n;
+    if (resultSize <= 0) return [];
+    if (resultSize == 1) return [this.last];
 
-      originalList.removeRange(0, n);
-
-      originalList.forEach((element) => list.add(element));
-    }
+    originalList.removeRange(0, n);
+    originalList.forEach((element) => list.add(element));
     return list;
   }
 
-  // Retuns map operation as a List
+  // Return map operation as a List
   List<E> mapList<E>(E f(T e)) => this.map(f).toList();
 
   // Takes the first half of a list
@@ -204,7 +195,7 @@ extension CollectionsExtensions<T> on Iterable<T> {
   /// var name = [].firstOrDefault["jack"]; // jack
   T firstOrDefault(T defaultValue) => firstOrNull ?? defaultValue;
 
-  /// Will retrun new [Iterable] with all elements that satisfy the predicate [predicate],
+  /// Will return new [Iterable] with all elements that satisfy the predicate [predicate],
   Iterable<T> whereIndexed(IndexedPredicate<T> predicate) => _IndexedWhereIterable(this, predicate);
 
   ///
@@ -309,13 +300,13 @@ extension CollectionsExtensions<T> on Iterable<T> {
     return list;
   }
 
-// get an element at specific index or return null
+  // get an element at specific index or return null
   T? _elementAtOrNull(int index) {
     return _elementOrNull(index, (_) => null);
   }
 
-  _elementOrNull(int index, T? defaultElement(int index)) {
-// if our index is smaller then 0 return the default
+  T? _elementOrNull(int index, T? defaultElement(int index)) {
+    // if our index is smaller then 0 return the default
     if (index < 0) return defaultElement(index);
 
     var counter = 0;
@@ -338,7 +329,7 @@ extension CollectionsExtensions<T> on Iterable<T> {
   ///
   /// result:
   /// 1,2,3
-  subtract(Iterable<T> other) {
+  Set<T> subtract(Iterable<T> other) {
     final set = toSet();
     set.removeAll(other);
     return set;

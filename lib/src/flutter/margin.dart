@@ -13,52 +13,43 @@
 
 part of '/dart_extensions.dart';
 
-extension PaddingExtensions on Widget {
-  Padding paddingAll(double value, {Key? key}) {
-    return Padding(
-      key: key,
-      padding: EdgeInsets.all(value),
-      child: this,
-    );
-  }
+extension MarginExtensions<T extends Container> on T {
+  T marginAll(double value) => this.copyWith(margin: EdgeInsets.all(value)) as T;
 
-  Padding paddingLTRB(
+  T marginLTRB(
     double left,
     double top,
     double right,
-    double bottom, {
-    Key? key,
-  }) =>
-      Padding(
-        key: key,
-        padding: EdgeInsets.fromLTRB(left, top, right, bottom),
-        child: this,
-      );
+    double bottom,
+  ) =>
+      this.copyWith(
+        margin: EdgeInsets.fromLTRB(
+          left,
+          top,
+          right,
+          bottom,
+        ),
+      ) as T;
 
-  Padding paddingSymmetric({Key? key, double v = 0.0, double h = 0.0}) => Padding(
-        key: key,
-        padding: EdgeInsets.symmetric(
+  T marginSymmetric({double v = 0.0, double h = 0.0}) => this.copyWith(
+        margin: EdgeInsets.symmetric(
           vertical: v,
           horizontal: h,
         ),
-        child: this,
-      );
+      ) as T;
 
-  Padding paddingOnly({
-    Key? key,
+  T marginOnly({
     double left = 0.0,
     double right = 0.0,
     double top = 0.0,
     double bottom = 0.0,
   }) =>
-      Padding(
-        key: key,
-        padding: EdgeInsets.only(
+      this.copyWith(
+        margin: EdgeInsets.only(
           left: left,
           right: right,
           top: top,
           bottom: bottom,
         ),
-        child: this,
-      );
+      ) as T;
 }

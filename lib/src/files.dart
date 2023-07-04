@@ -10,3 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+part of '/dart_extensions.dart';
+
+extension FileExtensions on File {
+  String get ext => p.extension(this.path);
+
+  String get filename => p.basename(this.path);
+
+  String get dirname => p.dirname(this.path);
+}

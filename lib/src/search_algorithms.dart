@@ -11,3 +11,4 @@
  * limitations under the License.
  */
 
+part of '/dart_extensions.dart';

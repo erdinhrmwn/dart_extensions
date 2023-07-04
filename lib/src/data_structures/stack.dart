@@ -11,14 +11,27 @@
  * limitations under the License.
  */
 
-class User {
-  final int age;
-  final String name;
+part of '/dart_extensions.dart';
 
-  User(this.age,this.name);
+class StackX<T> {
+  final _list = ListQueue<T>();
 
-  @override
-  String toString() {
-    return "$age, $name";
+  bool get isEmpty => _list.isEmpty;
+
+  bool get isNotEmpty => _list.isNotEmpty;
+
+  push(T element) => _list.addLast(element);
+
+  T pop() {
+    final T element = _list.last;
+    _list.removeLast();
+    return element;
+  }
+
+  top() => _list.last;
+
+  List<T> addAll(Iterable<T> elements) {
+    _list.addAll(elements);
+    return _list.toList();
   }
 }

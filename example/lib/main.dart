@@ -24,10 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {"/login": (_) => Login()},
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Home(),
-      ),
+      home: Home(),
     );
   }
 }
@@ -37,8 +34,6 @@ class Routes {
 }
 
 class Home extends StatefulWidget {
-  
-  
   @override
   _HomeState createState() => _HomeState();
 }
@@ -46,30 +41,28 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    
-    print([1,2,3,4].mapList((f) => f.toDouble()));
+    print([1, 2, 3, 4].mapList((f) => f.toDouble()));
     return Scaffold(
       body: Container(
-        child: Stack(
-          children: <Widget>[
-            Container(height: 100, width: 100)
-                .withRoundCorners(backgroundColor: Colors.grey)
-                .withShadow()
-                .alignAtCenter()
-                .toCenter()
-                .paddingOnly(left: 10)
-                .paddingAll(20)
-                .onTap(
-                  () async {
-                    final result = await navigateByRouteName(Routes.login);
-                    print(result);
-                  },
-                )  .withTooltip('just a tooltip')
-                .onLongPress(() => print('long press'))
-
-          ],
-        ),
-      ),
+        height: 100,
+        width: 100,
+      )
+          .withBackgroundColor(color: Colors.grey)
+          .withBorder(border: Border.all(color: Colors.black, width: 1.0))
+          .withRoundCorners()
+          .withShadow()
+          .alignAtCenter()
+          .toCenter()
+          .paddingOnly(left: 10)
+          .paddingAll(20)
+          .onTap(
+            () async {
+              final result = await context.pushNamed(Routes.login);
+              print(result);
+            },
+          )
+          .withTooltip('just a tooltip')
+          .onLongPress(() => print('long press')),
     );
   }
 }
@@ -78,13 +71,10 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey,
-      child: Center(
-        child: MaterialButton(
-          child: Text('Go Back'),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-    );
+      child: MaterialButton(
+        child: Text('Go Back'),
+        onPressed: () => context.back(),
+      ).toCenter(),
+    ).withBackgroundColor(color: Colors.blueGrey);
   }
 }

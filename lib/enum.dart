@@ -1,3 +1,5 @@
+import 'package:recase/recase.dart';
+
 extension EnumExt on dynamic {
   static bool _isEnumItem(enumItem) {
     final splitEnum = enumItem.toString().split('.');
@@ -8,6 +10,6 @@ extension EnumExt on dynamic {
     assert(this != null);
     assert(_isEnumItem(this), '$this of type ${this.runtimeType.toString()} is not an enum item');
     final temp = this.toString().split('.')[1];
-    return !camelCase ? temp : camelCaseToWords(temp);
-  } 
+    return !camelCase ? temp : temp.camelCase;
+  }
 }

@@ -11,29 +11,29 @@
  * limitations under the License.
  */
 
+import 'package:dart_extensions/dart_extensions.dart';
 import 'package:test/test.dart';
-import 'package:dart_extensions/src/date.dart';
 
 main() {
   group('date time', () {
     test('toMilliseconds', () {
-      expect(1.toMilliseconds(), Duration(milliseconds: 1));
+      expect(1.milliseconds, Duration(milliseconds: 1));
     });
 
     test('toSeconds', () {
-      expect(1.toSeconds(), Duration(seconds: 1));
+      expect(1.seconds, Duration(seconds: 1));
     });
 
     test('toMinutes', () {
-      expect(1.toMinutes(), Duration(minutes: 1));
+      expect(1.minutes, Duration(minutes: 1));
     });
 
     test('toHours', () {
-      expect(1.toHours(), Duration(hours: 1));
+      expect(1.hours, Duration(hours: 1));
     });
 
     test('toDays', () {
-      expect(1.toDays(), Duration(days: 1));
+      expect(1.days, Duration(days: 1));
     });
   });
 }
