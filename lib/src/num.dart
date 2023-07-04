@@ -72,8 +72,8 @@ extension NumExtensions on num {
 
   /// Convert this integer into boolean.
   ///
-  /// Returns `true` if this num is equal to *1*.
-  bool get asBool => this == 1;
+  /// Returns `true` if this num is higher than *0*.
+  bool get asBool => this > 0;
 }
 
 extension NumDuration on num {

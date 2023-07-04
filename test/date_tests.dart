@@ -12,7 +12,7 @@
  */
 
 import 'package:dart_extensions/dart_extensions.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 main() {
   group('date time', () {
@@ -34,6 +34,14 @@ main() {
 
     test('toDays', () {
       expect(1.days, Duration(days: 1));
+    });
+
+    test('isFuture', () {
+      expect(1.days.fromNow.isFuture, true);
+    });
+
+    test('isPast', () {
+      expect(1.days.ago.isPast, true);
     });
   });
 }
